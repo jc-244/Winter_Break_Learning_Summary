@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Reasoning & Frameworks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* --- 1. PRESENTATION MODE (Scroll Snap) --- */
+html {
+    scroll-snap-type: y mandatory; /* 强制整页吸附 */
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+body {
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    font-family: 'Merriweather', serif;
+}
+
+/* --- 2. SLIDE CONTAINER --- */
+.slide-container {
+    height: 100vh; /* 每一页占满屏幕高度 */
+    width: 100%;
+    scroll-snap-align: start; /* 吸附对齐 */
+    scroll-snap-stop: always;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden; /* 防止Slide本身出现滚动条，除非特定区域 */
+    border-bottom: 1px solid #cbd5e1;
+}
+
+/* Internal Layout Wrapper to keep content centered like a slide */
+.slide-inner {
+    width: 1280px; /* 固定幻灯片内容宽度 */
+    max-width: 95%;
+    height: 720px; /* 固定幻灯片内容高度 */
+    padding: 40px 60px;
+    background: white;
+    position: relative;
+    /* Optional: Add a slight shadow to simulate a page if background is not white */
+    /* box-shadow: 0 0 20px rgba(0,0,0,0.05); */
+}
+
+/* 2.1 DECORATION */
+.slide-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: #0f172a;
+    z-index: 10;
+}
+
+.slide-footer {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: none;
+}
+.slide-footer.show-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+    color: #0f172a;
+    letter-spacing: 0;
+    text-transform: none;
+}
+.footer-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 17px;
+}
+.footer-github i {
+    font-size: 21px;
+}
+.footer-github:hover {
+    color: #1e3a8a;
+}
+
+/* 3. TYPOGRAPHY */
+h1, h2, h3 {
+    color: #0f172a;
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+h1 { font-size: 56px; margin-bottom: 20px; }
+h2.slide-title { font-size: 48px; margin-bottom: 30px; width: 100%; text-align: left; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
+h3 { font-size: 24px; margin-bottom: 15px; font-family: 'Lato', sans-serif; }
+
+p, li, div {
+    color: #334155;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+li { margin-bottom: 12px; }
+strong { color: #0f172a; font-weight: 700; }
+a.unstyled-link { color: inherit; text-decoration: none; }
+a.unstyled-link:hover { text-decoration: underline; }
+
+.title-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+}
+.title-layout h1 { margin-bottom: 0; }
+.title-layout .subtitle {
+    margin: 0;
+    font-size: 22px;
+    color: #475569;
+    line-height: 1.4;
+    max-width: 820px;
+}
+.hero-title {
+    margin-top: clamp(140px, 38vh, 280px); /* place near the golden ratio line */
+}
+.hero-slide h1 {
+    font-size: clamp(54px, 4.6vw, 72px);
+}
+.hero-slide .subtitle {
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.5;
+}
+
+/* 4. LAYOUT UTILITIES */
+.content-area { display: flex; flex-direction: column; height: 100%; justify-content: center; }
+.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; height: 100%; }
+
+/* Image Wrappers */
+.image-wrapper {
+    width: 100%;
+    height: 350px;
+    border: 1px solid #cbd5e1;
+    padding: 10px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* Tiled Content */
+.tiled-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: 100%; }
+.tile { background: #f8fafc; border: 1px solid #e2e8f0; padding: 30px; border-left: 4px solid #0f172a; }
+.tile .icon { color: #0f172a; font-size: 32px; margin-bottom: 20px; }
+
+/* Bleed Image Layout */
+.bleed-layout { display: grid; grid-template-columns: 1fr 1fr; width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+.bleed-content { padding: 80px; display: flex; flex-direction: column; justify-content: center; margin-left: auto; max-width: 640px; }
+.bleed-image {
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    border-left: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+.mac-window-wrapper.mac-image-window {
+    width: 520px;
+    max-width: 90%;
+    height: 620px;
+}
+.mac-image-body {
+    flex: 1;
+    overflow: auto;
+    background: #fff;
+}
+.mac-image-body img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* GitHub Link */
+.github-link { font-family: 'Courier New', monospace; background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 16px; color: #0f172a; display: inline-block; }
+
+/* --- 5. EXECUTION TRACE SPECIAL STYLES --- */
+.mac-window-wrapper {
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+.mac-header {
+    background: #e2e8f0;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #cbd5e1;
+    flex-shrink: 0;
+}
+.mac-buttons { display: flex; gap: 6px; margin-right: 15px; }
+.mac-btn { width: 12px; height: 12px; border-radius: 50%; }
+.mac-title { background: #fff; padding: 2px 10px; border-radius: 4px; font-size: 12px; color: #64748b; flex-grow: 1; text-align: center; font-family: monospace; }
+.trace-scroll-area {
+    height: 450px; /* 固定高度 */
+    overflow-y: auto; /* 允许纵向滚动 */
+    background: #fff;
+    padding: 20px;
+    /* 强制显示滚动条样式 */
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+/* Webkit Scrollbar */
+.trace-scroll-area::-webkit-scrollbar { width: 10px; }
+.trace-scroll-area::-webkit-scrollbar-track { background: #f1f5f9; }
+.trace-scroll-area::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 5px; border: 2px solid #f1f5f9; }
+
+/* The Fake Long Image (CSS Generated Trace) */
+.trace-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+.trace-block {
+    padding: 8px 12px;
+    border-left: 2px solid #cbd5e1;
+    margin-bottom: 8px;
+    background: #f8fafc;
+    color: #475569;
+}
+.trace-line { height: 12px; width: 2px; background: #cbd5e1; margin-left: 10px; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<section class="slide-container hero-slide">
+    <div class="slide-inner">
+        <div class="title-layout hero-title">
+            <h1>Winter Break Learning Summary</h1>
+            <p class="subtitle">AI Agents: Reasoning · Planning · Tool Use | Reading & Coding</p>
+        </div>
+        <div class="slide-footer">Tab 5 Report</div>
+    </div>
+</section>
+
+<!-- Slide 2: Literature Survey -->
+<section class="slide-container">
+    <div class="slide-inner">
+        <h2 class="slide-title">Reading: Surveys & Lists</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-scroll"></i></div>
+                    <h3>X of Thought</h3>
+                    <p><em><a class="unstyled-link" href="https://aclanthology.org/2024.acl-long.65/" target="_blank" rel="noopener noreferrer">"A Survey of Chain of Thought Reasoning: Advances, Frontiers and Future"</a></em></p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Safety & Security</h3>
+                    <p><em><a class="unstyled-link" href="https://arxiv.org/abs/2505.10924" target="_blank" rel="noopener noreferrer">"A Survey on the Safety and Security Threats of Computer-Using Agents: JARVIS or Ultron?"</a></em></p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-list-check"></i></div>
+                    <h3>Frameworks</h3>
+                    <p>GitHub lists of agent <a class="unstyled-link" href="https://github.com/kaushikb11/awesome-llm-agents" target="_blank" rel="noopener noreferrer">Frameworks</a> &amp; Papers (<a class="unstyled-link" href="https://github.com/WooooDyy/LLM-Agent-Paper-List" target="_blank" rel="noopener noreferrer">2023-2024</a>, <a class="unstyled-link" href="https://github.com/AGI-Edgerunners/LLM-Agents-Papers" target="_blank" rel="noopener noreferrer">2024-2025</a>).</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">Tab 5 Report</div>
+    </div>
+</section>
+
+<!-- Slide 3: Foundations -->
+<section class="slide-container">
+    <div class="slide-inner">
+        <h2 class="slide-title">Reading: Key Papers — ToT and ReAct</h2>
+        <div class="two-column">
+            <div>
+                <p style="margin: 0 0 18px 0;">
+                    <strong>Summary:</strong> ToT explores <em>thought space</em>; ReAct grounds reasoning via <em>actions</em>.
+                </p>
+                <div style="display: grid; gap: 18px; margin-top: 6px;">
+                    <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
+                        <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
+                        <div>
+                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>ToT</strong> — search over candidate reasoning paths.</p>
+                            <p style="margin:0; color:#475569;">Value comes from <strong>tree-like branching + scoring</strong>, not longer CoT.</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
+                        <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
+                        <div>
+                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>ReAct</strong> — closed-loop reasoning with tool interactions.</p>
+                            <p style="margin:0; color:#475569;">The loop (Action → Observation) prevents “free-floating” reasoning.</p>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 20px; border-left: 3px solid #0f172a; padding-left: 15px;">
+                    <strong>Key takeaway:</strong> The bottleneck is <strong>evaluation + replay</strong> under partial observability—
+                    without that, “search” is just noise.
+                </p>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/16422640634148583502" alt="ToT Diagram">
+            </div>
+        </div>
+        <div class="slide-footer">Tab 5 Report</div>
+    </div>
+</section>
+
+<!-- Slide 4: EXACT Framework -->
+<section class="slide-container">
+    <div class="slide-inner">
+        <h2 class="slide-title">Reading: Key Papers —  EXACT</h2>
+        <div class="two-column">
+            <div>
+                <p style="margin: 0 0 18px 0;">
+                    <strong>Summary:</strong> ExACT is about <em>budgeted exploration</em> in the real web—making failures diagnosable and search reusable.
+                </p>
+                <div style="display: grid; gap: 18px; margin-top: 6px;">
+                    <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
+                        <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
+                        <div>
+                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>Engineering thesis:</strong> credit assignment in the wild.</p>
+                            <p style="margin:0; color:#475569;">When a task fails, is it the plan, perception, tool output, or environment noise?</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
+                        <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
+                        <div>
+                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>Budget matters:</strong> search is constrained by cost.</p>
+                            <p style="margin:0; color:#475569;">Most compute goes to exploration + evaluation—so the real problem is <strong>when to branch, stop, and reuse</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 20px; border-left: 3px solid #0f172a; padding-left: 15px;">
+                    <strong>Key takeaway:</strong> The most transferable part is the <strong>interface</strong>—replayable state, caching, tool contracts, and traceable evaluation (algorithms can swap).
+                </p>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/11747536248559376834" alt="EXACT Flowchart">
+            </div>
+        </div>
+        <div class="slide-footer">Tab 5 Report</div>
+    </div>
+</section>
+
+<!-- Slide 5: Exp 1 - EXACT Modified -->
+<section class="slide-container" style="padding: 0;">
+    <div class="bleed-layout">
+        <div class="bleed-content">
+            <h2 style="font-size: 42px; margin-bottom: 20px;">Exp 1: Modifying EXACT</h2>
+            <h3>Objective</h3>
+            <p>Modify the EXACT repo to run a lightweight demo on macOS using OpenAI API.</p>
+            <br>
+            <h3>Key Challenge: The DOM</h3>
+            <p><strong>Problem:</strong> Real-world DOM trees are messy. Agents fail to locate elements strictly by ID or class.</p>
+        </div>
+        <div class="bleed-image">
+            <div class="mac-window-wrapper mac-image-window">
+                <div class="mac-header">
+                    <div class="mac-buttons">
+                        <div class="mac-btn" style="background: #ff5f57;"></div>
+                        <div class="mac-btn" style="background: #febc2e;"></div>
+                        <div class="mac-btn" style="background: #28c840;"></div>
+                    </div>
+                    <div class="mac-title">DOM_snapshot.png</div>
+                </div>
+                <div class="mac-image-body">
+                    <img src="./exact_modified.png" alt="DOM Interaction">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-footer show-footer" style="z-index: 20;">
+        <a class="footer-github" href="https://github.com/jc-244/EXACT_modified" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            <span>EXACT_modified</span>
+        </a>
+    </div>
+</section>
+
+
+<!-- Slide 7: Exp 2 - ReAct + MCP -->
+<section class="slide-container">
+    <div class="slide-inner">
+        <h2 class="slide-title">Experiment 2: ReAct + MCP</h2>
+        <div class="two-column">
+            <div>
+                <h3>Standardizing Tool Use</h3>
+                <p>Refactoring ReAct to use the <strong>Model Context Protocol (MCP)</strong>.</p>
+                <ul style="margin-top: 20px;">
+                    <li><strong>Why?</strong> Custom DSLs are brittle. MCP is stable & LLM-agnostic.</li>
+                    <li><strong>Implementation:</strong> Connected to an SEC Edgar MCP server.</li>
+                    <li><strong>Trade-off:</strong> Robustness vs. Complexity (Client/Server arch).</li>
+                </ul>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/8435137819724911880" alt="MCP Architecture">
+            </div>
+        </div>
+        <div class="slide-footer show-footer">
+            <a class="footer-github" href="https://github.com/jc-244/ReAct_MCP" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                <span>ReAct_MCP</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 8: Exp 3 - Validation -->
+<section class="slide-container" style="padding: 0;">
+    <div class="bleed-layout">
+        <div class="bleed-content">
+            <h2 style="font-size: 42px; margin-bottom: 20px;">Exp 3: Validation Pipeline</h2>
+            <h3>Multi-Agent Orchestration</h3>
+            <p>Using <strong>CrewAI</strong> for a 2-agent validation pipeline.</p>
+            <br>
+            <h3>Observations</h3>
+            <p>CrewAI is great for <strong>structure</strong> (Role/Task definition), but weak on <strong>protocol</strong>. Maintaining state consistency across agents requires custom data contracts.</p>
+        </div>
+        <div class="bleed-image">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/3135207583356984688" alt="Validation Pipeline">
+        </div>
+    </div>
+    <div class="slide-footer show-footer" style="z-index: 20;">
+        <a class="footer-github" href="https://github.com/jc-244/ReAct_MCP/tree/try_validation_crewai" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            <span>try_validation_crewai</span>
+        </a>
+    </div>
+</section>
+
+
+
+</body>
+</html>
