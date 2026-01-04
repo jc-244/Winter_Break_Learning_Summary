@@ -166,6 +166,76 @@ a.unstyled-link:hover { text-decoration: underline; }
     align-items: center;
 }
 .image-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.poster {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow:
+        0 26px 80px rgba(15, 23, 42, 0.14),
+        0 2px 0 rgba(15, 23, 42, 0.04);
+}
+.poster-tag {
+    position: absolute;
+    right: 22px;
+    bottom: 18px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #0f172a;
+    opacity: 0.55;
+}
+.poster img {
+    width: 100%;
+    max-height: 350px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.zoomable { display: block; cursor: zoom-in; }
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+    z-index: 999;
+}
+.lightbox:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+.lightbox img {
+    max-width: min(1100px, 92vw);
+    max-height: 92vh;
+    width: auto;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 30px 90px rgba(15, 23, 42, 0.35);
+}
+.lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.7);
+    color: #e2e8f0;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+}
 
 /* Tiled Content */
 .tiled-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: 100%; }
@@ -344,35 +414,41 @@ a.unstyled-link:hover { text-decoration: underline; }
         <div class="two-column">
             <div>
                 <p style="margin: 0 0 18px 0;">
-                    <strong>Summary:</strong> ExACT is about <em>budgeted exploration</em> in the real web—making failures diagnosable and search reusable.
+                    <strong>Summary:</strong> See the flowchart — ExACT turns budgeted exploration on the real web into an engineering-friendly system: traceable, reusable, and modular.
                 </p>
                 <div style="display: grid; gap: 18px; margin-top: 6px;">
                     <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
                         <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
                         <div>
-                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>Engineering thesis:</strong> credit assignment in the wild.</p>
-                            <p style="margin:0; color:#475569;">When a task fails, is it the plan, perception, tool output, or environment noise?</p>
+                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>Agent paradigm:</strong> ReAct-style loop (thought → action/tool → observation), with the interaction process standardized into executable steps + logs.</p>
                         </div>
                     </div>
                     <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
                         <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
                         <div>
-                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>Budget matters:</strong> search is constrained by cost.</p>
-                            <p style="margin:0; color:#475569;">Most compute goes to exploration + evaluation—so the real problem is <strong>when to branch, stop, and reuse</strong>.</p>
+                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>Reasoning / decision-making:</strong> Tree-based, search-based control for when to branch, evaluate, backtrack, and replay—rather than a single linear chain like CoT.</p>
                         </div>
                     </div>
                 </div>
                 <p style="margin-top: 20px; border-left: 3px solid #0f172a; padding-left: 15px;">
-                    <strong>Key takeaway:</strong> The most transferable part is the <strong>interface</strong>—replayable state, caching, tool contracts, and traceable evaluation (algorithms can swap).
+                    <strong>Key takeaway:</strong> The “stable large-system framework” design: under the repo's scaffold, components (agent/policy / evaluator / env / tools, etc.) can be swapped reliably as long as interfaces stay stable—algorithms can change, the system still runs.
                 </p>
             </div>
-            <div class="image-wrapper">
-                <img src="http://googleusercontent.com/image_collection/image_retrieval/11747536248559376834" alt="EXACT Flowchart">
+            <div class="poster">
+                <div class="poster-tag">EXACT • Repo Flow</div>
+                <a href="#exact-zoom" class="zoomable">
+                    <img src="./exact_pipeline.png" alt="EXACT Flowchart">
+                </a>
             </div>
         </div>
         <div class="slide-footer">Tab 5 Report</div>
     </div>
 </section>
+
+<a href="#_" class="lightbox" id="exact-zoom">
+    <img src="./exact_pipeline.png" alt="EXACT Flowchart Large">
+    <span class="lightbox-close">Close</span>
+</a>
 
 <!-- Slide 5: Exp 1 - EXACT Modified -->
 <section class="slide-container" style="padding: 0;">
