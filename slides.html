@@ -327,6 +327,404 @@ a.unstyled-link:hover { text-decoration: underline; }
     color: #475569;
 }
 .trace-line { height: 12px; width: 2px; background: #cbd5e1; margin-left: 10px; margin-bottom: 8px; }
+
+/* --- 6. MCP CAROUSEL --- */
+.mcp-carousel {
+    width: 520px;
+    height: 620px;
+    max-width: 90%;
+    max-height: 90%;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.mcp-carousel {
+    font-family: "Lato", sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+}
+.mcp-carousel div,
+.mcp-carousel p,
+.mcp-carousel li {
+    font-size: inherit;
+    line-height: inherit;
+}
+.mcp-carousel__header {
+    padding: 14px 14px 10px 14px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 10px 12px;
+    align-items: center;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(248, 250, 252, 0.8);
+}
+.mcp-carousel__title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #0f172a;
+    font-size: 14px;
+}
+.mcp-carousel__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+}
+.mcp-carousel__nav {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    gap: 6px;
+    justify-self: end;
+}
+.navbtn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 18px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.navbtn:hover {
+    background: #0f172a;
+    color: #ffffff;
+}
+.navbtn:focus-visible {
+    outline: 2px solid #0f172a;
+    outline-offset: 2px;
+}
+.mcp-carousel__viewport {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+.mcp-carousel__viewport::-webkit-scrollbar { height: 6px; }
+.mcp-carousel__viewport::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+.mcp-carousel__viewport::-webkit-scrollbar-track { background: transparent; }
+.mcp-carousel__track {
+    display: flex;
+    gap: 0;
+    height: 100%;
+    padding: 14px 0;
+    box-sizing: border-box;
+}
+.mcp-slide {
+    flex: 0 0 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+    display: flex;
+    scroll-snap-align: start;
+}
+.mcp-card {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 12px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.mcp-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+.mcp-card__body {
+    flex: 1;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #334155;
+}
+.tag {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    color: #475569;
+}
+.badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    color: #0f172a;
+}
+.badge--warn {
+    background: #fee2e2;
+    color: #991b1b;
+}
+.badge--ok {
+    background: #dcfce7;
+    color: #166534;
+}
+.kv {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 10px;
+}
+.kv__k {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #64748b;
+}
+.kv__v { color: #0f172a; }
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.panel {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px;
+    background: #f8fafc;
+}
+.panel__h {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.panel__c { font-size: 11px; color: #0f172a; }
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.col__h {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    font-weight: 700;
+}
+.code {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 0;
+    font-size: 10.5px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 11px;
+    color: #475569;
+}
+.hint__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #94a3b8;
+}
+.hint__dot--warn { background: #f59e0b; }
+.hint__dot--ok { background: #22c55e; }
+.pillrow {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+.pill {
+    font-size: 10px;
+    border-radius: 999px;
+    padding: 3px 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #334155;
+}
+.pill--ok {
+    background: #ecfdf3;
+    color: #166534;
+    border-color: #bbf7d0;
+}
+.mcp-carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 0 14px;
+    border-top: 1px solid rgba(148, 163, 184, 0.35);
+    background: #ffffff;
+}
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: 1px solid #94a3b8;
+    background: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.dot.is-active {
+    background: #0f172a;
+    border-color: #0f172a;
+}
+.mono { font-family: "Courier New", monospace; }
+
+/* --- 7. REACT + MCP PANEL --- */
+.reactmcp {
+    width: 520px;
+    height: 620px;
+    max-width: 90%;
+    max-height: 90%;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: "Lato", sans-serif;
+}
+.reactmcp__header {
+    padding: 12px 14px 10px 14px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.reactmcp__title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+}
+.reactmcp__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.reactmcp__body {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: auto;
+}
+.compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.compare__col {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.compare__h {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.timeline {
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 10px;
+    background: #ffffff;
+}
+.timeline__h {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+.step {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 10px;
+    padding: 8px 0;
+    border-top: 1px solid #e2e8f0;
+}
+.step:first-of-type { border-top: none; }
+.step__idx {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.step__content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.step__k {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.step__v {
+    font-size: 12px;
+    color: #334155;
+}
+.reactmcp .code {
+    font-size: 11px;
+    line-height: 1.4;
+}
     </style>
 </head>
 <body>
@@ -486,34 +884,102 @@ a.unstyled-link:hover { text-decoration: underline; }
 </section>
 
 
-<!-- Slide 7: Exp 2 - ReAct + MCP -->
-<section class="slide-container">
-    <div class="slide-inner">
-        <h2 class="slide-title">Experiment 2: ReAct + MCP</h2>
-        <div class="two-column">
-            <div>
-                <h3>Standardizing Tool Use</h3>
-                <p>Refactoring ReAct to use the <strong>Model Context Protocol (MCP)</strong>.</p>
-                <ul style="margin-top: 20px;">
-                    <li><strong>Why?</strong> Custom DSLs are brittle. MCP is stable & LLM-agnostic.</li>
-                    <li><strong>Implementation:</strong> Connected to an SEC Edgar MCP server.</li>
-                    <li><strong>Trade-off:</strong> Robustness vs. Complexity (Client/Server arch).</li>
-                </ul>
-            </div>
-            <div class="image-wrapper">
-                <img src="http://googleusercontent.com/image_collection/image_retrieval/8435137819724911880" alt="MCP Architecture">
+<!-- Slide 6: Exp 2 - ReAct + MCP -->
+<section class="slide-container" style="padding: 0;">
+    <div class="bleed-layout">
+        <div class="bleed-content">
+            <h2 style="font-size: 42px; margin-bottom: 20px;">Exp 2: ReAct + MCP</h2>
+            <h3>Standardizing Tool Use</h3>
+            <p>Refactoring ReAct to use the <strong>Model Context Protocol (MCP)</strong>.</p>
+            <ul style="margin-top: 20px;">
+                <li><strong>Why?</strong> Custom DSLs are brittle. MCP is stable & LLM-agnostic.</li>
+                <li><strong>Implementation:</strong> Connected to an SEC Edgar MCP server.</li>
+                <li><strong>Trade-off:</strong> Robustness vs. Complexity (Client/Server arch).</li>
+            </ul>
+        </div>
+        <div class="bleed-image">
+            <div class="reactmcp">
+                <div class="reactmcp__header">
+                    <div class="reactmcp__title">ReAct Loop → MCP Tool Calls</div>
+                    <div class="reactmcp__pills">
+                        <span class="pill">Thought · Action · Observation</span>
+                        <span class="pill pill--ok">Action = MCP JSON</span>
+                        <span class="pill">SEC EDGAR tools</span>
+                    </div>
+                </div>
+
+                <div class="reactmcp__body">
+                    <div class="compare">
+                        <div class="compare__col">
+                            <div class="compare__h">Before (Custom DSL)</div>
+                            <pre class="code mono">Thought: need latest 10-Q revenue
+Action: Search[TSLA 10-Q revenue]
+Observation: ... (free-text, brittle)</pre>
+                        </div>
+
+                        <div class="compare__col">
+                            <div class="compare__h">After (MCP Structured Call)</div>
+                            <pre class="code mono">Thought: fetch latest 10-Q + parse revenue
+Action: {"tool":"get_recent_filings",
+         "args":{"identifier":"TSLA","form":"10-Q","limit":1}}
+Observation: {"accession":"...","period_end":"..."}  // JSON</pre>
+                        </div>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline__h">One ReAct iteration (example)</div>
+
+                        <div class="step">
+                            <div class="step__idx">1</div>
+                            <div class="step__content">
+                                <div class="step__k">Thought</div>
+                                <div class="step__v">Identify the company and locate the most recent 10-Q.</div>
+                                <div class="step__k">Action (MCP)</div>
+                                <pre class="code mono">{"tool":"get_cik_by_ticker","args":{"ticker":"TSLA"}}</pre>
+                                <div class="step__k">Observation</div>
+                                <pre class="code mono">{"cik":"0001318605"}</pre>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step__idx">2</div>
+                            <div class="step__content">
+                                <div class="step__k">Thought</div>
+                                <div class="step__v">Find the latest quarterly filing (10-Q) and its period end.</div>
+                                <div class="step__k">Action (MCP)</div>
+                                <pre class="code mono">{"tool":"get_recent_filings",
+ "args":{"identifier":"0001318605","form":"10-Q","limit":1}}</pre>
+                                <div class="step__k">Observation</div>
+                                <pre class="code mono">{"accession":"0001628280-25-045968","period_end":"2025-09-30"}</pre>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step__idx">3</div>
+                            <div class="step__content">
+                                <div class="step__k">Thought</div>
+                                <div class="step__v">Extract revenue in a typed, repeatable way (avoid scraping text).</div>
+                                <div class="step__k">Action (MCP)</div>
+                                <pre class="code mono">{"tool":"get_financials",
+ "args":{"identifier":"0001318605","metric":"revenue","period":"2025-Q3"}}</pre>
+                                <div class="step__k">Observation</div>
+                                <pre class="code mono">{"total_revenue_usd":28095000000,"period_end":"2025-09-30"}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="slide-footer show-footer">
-            <a class="footer-github" href="https://github.com/jc-244/ReAct_MCP" target="_blank" rel="noopener noreferrer">
-                <i class="fa-brands fa-github" aria-hidden="true"></i>
-                <span>ReAct_MCP</span>
-            </a>
-        </div>
+    </div>
+    <div class="slide-footer show-footer">
+        <a class="footer-github" href="https://github.com/jc-244/ReAct_MCP" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            <span>ReAct_MCP</span>
+        </a>
     </div>
 </section>
 
-<!-- Slide 8: Exp 3 - Validation -->
+<!-- Slide 7: Exp 3 - Validation -->
 <section class="slide-container" style="padding: 0;">
     <div class="bleed-layout">
         <div class="bleed-content">
@@ -525,7 +991,175 @@ a.unstyled-link:hover { text-decoration: underline; }
             <p>CrewAI is great for <strong>structure</strong> (Role/Task definition), but weak on <strong>protocol</strong>. Maintaining state consistency across agents requires custom data contracts.</p>
         </div>
         <div class="bleed-image">
-            <img src="http://googleusercontent.com/image_collection/image_retrieval/3135207583356984688" alt="Validation Pipeline">
+            <!-- MCP Cards Carousel (4 cards, swipe/scroll + arrows + dots) -->
+            <div class="mcp-carousel" aria-label="CrewAI Validation Trace">
+                <div class="mcp-carousel__header">
+                    <div class="mcp-carousel__title">CrewAI Validation Trace (2 Rounds)</div>
+                </div>
+
+                <div class="mcp-carousel__viewport" id="mcpViewport">
+                    <div class="mcp-carousel__track" id="mcpTrack">
+                        <!-- Card 1 -->
+                        <div class="mcp-slide">
+                            <section class="mcp-card" data-card="0" aria-label="Run Meta: Role-Play + Gate">
+                            <div class="mcp-card__top">
+                                <span class="tag">ROLE-PLAY SETUP</span>
+                                <span class="badge">Round 0</span>
+                            </div>
+
+                            <div class="mcp-card__body">
+                                <div class="kv">
+                                    <div class="kv__k">User Query</div>
+                                    <div class="kv__v mono">"Show me Tesla’s revenue from their most recent quarterly report"</div>
+                                </div>
+
+                                <div class="grid2">
+                                    <div class="panel">
+                                        <div class="panel__h">Agents (CrewAI)</div>
+                                        <div class="panel__c mono">
+                                            Solver: produce draft answer<br />
+                                            Verifier: review + gate verdict<br />
+                                            (role-play loop)
+                                        </div>
+                                    </div>
+
+                                    <div class="panel">
+                                        <div class="panel__h">Two-Round Pipeline</div>
+                                        <div class="panel__c mono">
+                                            Round 1: Solve → Light review<br />
+                                            Round 2: Revise w/ feedback → Final audit<br />
+                                            Ship only on PASS
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="hint">
+                                    <span class="hint__dot"></span>
+                                    CrewAI orchestrates roles; correctness is enforced by a PASS gate (not vibes).
+                                </div>
+                            </div>
+                            </section>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="mcp-slide">
+                            <section class="mcp-card" data-card="1" aria-label="Round 1: Solver Draft">
+                            <div class="mcp-card__top">
+                                <span class="tag">ROUND 1 — SOLVE</span>
+                                <span class="badge">Step 1</span>
+                            </div>
+
+                            <div class="mcp-card__body">
+                                <div class="split">
+                                    <div class="col">
+                                        <div class="col__h">TASK (Solver)</div>
+                                        <pre class="code mono">Call react_mcp_solve EXACTLY ONCE.
+Return ONLY the Tool Output JSON.
+(question + model + max_steps)</pre>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="col__h">DRAFT OUTPUT (trimmed)</div>
+                                        <pre class="code mono">{
+  "final_answer": "Tesla's most recent quarterly revenue is $28,095,000,000 ... [SEC link]",
+  "info": { "n_calls": 4, "n_badcalls": 1 }
+}</pre>
+                                    </div>
+                                </div>
+
+                                <div class="hint">
+                                    <span class="hint__dot"></span>
+                                    Draft is produced by Solver; tool plumbing (SEC EDGAR) is abstracted away here.
+                                </div>
+                            </div>
+                            </section>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="mcp-slide">
+                            <section class="mcp-card" data-card="2" aria-label="Round 1: Verifier Light Review">
+                            <div class="mcp-card__top">
+                                <span class="tag">ROUND 1 — VERIFY</span>
+                                <span class="badge badge--warn">Step 2</span>
+                            </div>
+
+                            <div class="mcp-card__body">
+                                <div class="split">
+                                    <div class="col">
+                                        <div class="col__h">TASK (Verifier — light)</div>
+                                        <pre class="code mono">Review the DRAFT JSON LIGHTLY (demo mode).
+Return ONLY JSON:
+{
+  "verdict": "PASS"|"FAIL",
+  "issues": [...],
+  "fixes": [...],
+  "recheck_plan": [...],
+  "notes": "short"
+}</pre>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="col__h">VERDICT</div>
+                                        <pre class="code mono">{
+  "verdict": "PASS",
+  "issues": [],
+  "fixes": [],
+  "recheck_plan": [],
+  "notes": "Valid JSON + revenue + SEC link."
+}</pre>
+                                    </div>
+                                </div>
+
+                                <div class="hint">
+                                    <span class="hint__dot hint__dot--warn"></span>
+                                    Verifier runs as a separate role: quick sanity checks before spending effort on final gate.
+                                </div>
+                            </div>
+                            </section>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="mcp-slide">
+                            <section class="mcp-card" data-card="3" aria-label="Round 2: Feedback + Final Audit">
+                            <div class="mcp-card__top">
+                                <span class="tag">ROUND 2 — GATE</span>
+                                <span class="badge badge--ok">Step 3</span>
+                            </div>
+
+                            <div class="mcp-card__body">
+                                <div class="split">
+                                    <div class="col">
+                                        <div class="col__h">SOLVER RE-RUN (with feedback)</div>
+                                        <pre class="code mono">Tool Input includes Verifier JSON as feedback:
+feedback = {"verdict":"PASS", ...}
+
+Solver re-calls react_mcp_solve (2nd run)
+→ produces FINAL candidate JSON.</pre>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="col__h">FINAL AUDIT (Verifier)</div>
+                                        <pre class="code mono">{"verdict":"PASS","remaining_risks":[]}</pre>
+
+                                        <div class="pillrow">
+                                            <span class="pill pill--ok">PASS gate</span>
+                                            <span class="pill">remaining_risks: []</span>
+                                            <span class="pill">ship decision</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="hint">
+                                    <span class="hint__dot hint__dot--ok"></span>
+                                    Two-round loop: role-play feedback → final audit gate → only then ship.
+                                </div>
+                            </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
     <div class="slide-footer show-footer" style="z-index: 20;">
@@ -536,7 +1170,85 @@ a.unstyled-link:hover { text-decoration: underline; }
     </div>
 </section>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const viewport = document.getElementById("mcpViewport");
+    const track = document.getElementById("mcpTrack");
+    if (!viewport || !track) {
+        return;
+    }
 
+    const slideItems = Array.from(track.querySelectorAll(".mcp-slide"));
+    const cards = slideItems.length ? slideItems : Array.from(track.querySelectorAll(".mcp-card"));
+    const dotsWrap = document.getElementById("mcpDots");
+    const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll(".dot")) : [];
+    const navButtons = Array.from(document.querySelectorAll(".mcp-carousel .navbtn"));
+    if (!cards.length) {
+        return;
+    }
+
+    const scrollToIndex = (index) => {
+        const card = cards[index];
+        if (!card) {
+            return;
+        }
+        viewport.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+    };
+
+    let activeIndex = 0;
+    const setActive = (index) => {
+        activeIndex = index;
+        if (!dots.length) {
+            return;
+        }
+        dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+    };
+
+    const updateActive = () => {
+        const scrollLeft = viewport.scrollLeft;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+        cards.forEach((card, i) => {
+            const distance = Math.abs(card.offsetLeft - scrollLeft);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = i;
+            }
+        });
+        setActive(closestIndex);
+    };
+
+    navButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const dir = Number(btn.dataset.dir || 0);
+            const startIndex = Number.isFinite(activeIndex) ? activeIndex : 0;
+            const nextIndex = (startIndex + dir + cards.length) % cards.length;
+            scrollToIndex(nextIndex);
+        });
+    });
+
+    if (dots.length) {
+        dots.forEach((dot, index) => {
+            dot.addEventListener("click", () => scrollToIndex(index));
+        });
+    }
+
+    let ticking = false;
+    viewport.addEventListener("scroll", () => {
+        if (ticking) {
+            return;
+        }
+        ticking = true;
+        window.requestAnimationFrame(() => {
+            updateActive();
+            ticking = false;
+        });
+    });
+
+    window.addEventListener("resize", updateActive);
+    updateActive();
+});
+</script>
 
 </body>
 </html>
