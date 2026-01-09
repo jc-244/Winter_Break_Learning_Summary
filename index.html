@@ -455,6 +455,13 @@ a.unstyled-link:hover { text-decoration: underline; }
     display: flex;
     scroll-snap-align: start;
 }
+.mcp-stack {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+}
+.mcp-stack .mcp-card { height: 100%; }
 .mcp-card {
     flex: 1;
     width: 100%;
@@ -497,14 +504,6 @@ a.unstyled-link:hover { text-decoration: underline; }
     border-radius: 999px;
     background: #e2e8f0;
     color: #0f172a;
-}
-.badge--warn {
-    background: #fee2e2;
-    color: #991b1b;
-}
-.badge--ok {
-    background: #dcfce7;
-    color: #166534;
 }
 .kv {
     display: grid;
@@ -879,7 +878,7 @@ a.unstyled-link:hover { text-decoration: underline; }
 <!-- Slide 3: Foundations -->
 <section class="slide-container">
     <div class="slide-inner">
-        <h2 class="slide-title">Reading: Key Papers — ToT and ReAct</h2>
+        <h2 class="slide-title">Reading: Key Papers — ToT, ReAct and Reflection</h2>
         <div class="two-column">
             <div>
                 <p style="margin: 0 0 18px 0;">
@@ -890,27 +889,33 @@ a.unstyled-link:hover { text-decoration: underline; }
                         <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
                         <div>
                             <p style="margin:0 0 6px 0; font-size: 21px;"><strong>ToT</strong> — search over candidate reasoning paths.</p>
-                            <p style="margin:0; color:#475569;">Value comes from <strong>tree-like branching + scoring</strong>, not longer CoT.</p>
+                            <p style="margin:0; color:#475569;">Value comes from tree-like branching + scoring, not longer CoT.</p>
                         </div>
                     </div>
                     <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
                         <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
                         <div>
-                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>ReAct</strong> — closed-loop reasoning with tool interactions.</p>
-                            <p style="margin:0; color:#475569;">The loop (Action → Observation) prevents “free-floating” reasoning.</p>
+                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>ReAct</strong> — Treat reasoning traces as language actions and run a single trajectory of Thought → Action → Observation (so reasoning is grounded by interaction).</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
+                        <div style="width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background:#0f172a;"></div>
+                        <div>
+                            <p style="margin:0 0 6px 0; font-size: 21px;"><strong>Reflection</strong> — Turn feedback into self-reflection text stored in episodic memory to improve the next trial.</p>
+                            <p style="margin:0; color:#475569;">Feedback → reflection → memory → better next run (no training).</p>
                         </div>
                     </div>
                 </div>
                 <p style="margin-top: 20px; border-left: 3px solid #0f172a; padding-left: 15px;">
-                    <strong>Key takeaway:</strong> The bottleneck is <strong>evaluation + replay</strong> under partial observability—
-                    without that, “search” is just noise.
+                    <strong>Key takeaway:</strong> Two clean primitives: “search over thoughts” and “act with language.” Modern agents are mostly combinations and extensions of these primitives. 
                 </p>
             </div>
             <div class="poster poster--slider">
-                <div class="poster-tag">ToT • ReAct</div>
+                <div class="poster-tag">ToT • ReAct • Reflection</div>
                 <div class="poster-slider">
                     <img src="./tot.png" alt="ToT Diagram">
                     <img src="./react.png" alt="ReAct Diagram">
+                    <img src="./reflection.png" alt="Reflection Diagram">
                 </div>
             </div>
         </div>
@@ -967,10 +972,10 @@ a.unstyled-link:hover { text-decoration: underline; }
         <div class="bleed-content">
             <h2 style="font-size: 42px; margin-bottom: 20px;">Exp 1: Modifying EXACT</h2>
             <h3>Objective</h3>
-            <p>Modify the EXACT repo to run a lightweight demo on macOS using OpenAI API.</p>
+            <p>Modify the EXACT repo to run a lightweight demo on macOS using only OpenAI API.</p>
             <br>
             <h3>Key Challenge: The DOM</h3>
-            <p><strong>Problem:</strong> Real-world DOM trees are messy. Agents fail to locate elements strictly by ID or class.</p>
+            <p><strong>Problem:</strong> Real-world DOM trees are messy. Agents need more than strict ID/class matching to reliably locate elements.</p>
         </div>
         <div class="bleed-image">
             <div class="mac-window-wrapper mac-image-window">
@@ -1104,7 +1109,7 @@ Observation: {"accession":"...","period_end":"..."}  // JSON</pre>
             <p>Using <strong>CrewAI</strong> for a 2-agent validation pipeline.</p>
             <br>
             <h3>Observations</h3>
-            <p>CrewAI is great for <strong>structure</strong> (Role/Task definition), but weak on <strong>protocol</strong>. Maintaining state consistency across agents requires custom data contracts.</p>
+            <p>CrewAI is great for role/task orchestration, but I still had to enforce a <strong>strict JSON contract</strong> (verdict/issues/fixes/recheck_plan) to make the 2-round verify→gate loop reliable.</p>
         </div>
         <div class="bleed-image">
             <div class="mac-window-wrapper mac-image-window">
@@ -1121,95 +1126,87 @@ Observation: {"accession":"...","period_end":"..."}  // JSON</pre>
                     <div class="mcp-carousel" aria-label="CrewAI Validation Trace">
                         <div class="mcp-carousel__viewport" id="mcpViewport">
                             <div class="mcp-carousel__track" id="mcpTrack">
-                                <!-- Card 1 -->
+                                <!-- Slide Group 1 (cards 1 & 2 stacked) -->
                                 <div class="mcp-slide">
-                                    <section class="mcp-card" data-card="0" aria-label="Run Meta: Role-Play + Gate">
-                                    <div class="mcp-card__top">
-                                        <span class="tag">ROLE-PLAY SETUP</span>
-                                        <span class="badge">Round 0</span>
-                                    </div>
-
-                                    <div class="mcp-card__body">
-                                        <div class="kv">
-                                            <div class="kv__k">User Query</div>
-                                            <div class="kv__v mono">"Show me Tesla’s revenue from their most recent quarterly report"</div>
+                                    <div class="mcp-stack">
+                                        <section class="mcp-card" data-card="0" aria-label="Run Meta: Role-Play + Gate">
+                                        <div class="mcp-card__top">
+                                            <span class="tag">ROLE-PLAY SETUP</span>
+                                            <span class="badge">Round 0</span>
                                         </div>
 
-                                        <div class="grid2">
-                                            <div class="panel">
-                                                <div class="panel__h">Agents (CrewAI)</div>
-                                                <div class="panel__c mono">
-                                                    Solver: produce draft answer<br />
-                                                    Verifier: review + gate verdict<br />
-                                                    (role-play loop)
+                                        <div class="mcp-card__body">
+                                            <div class="kv">
+                                                <div class="kv__k">User Query</div>
+                                                <div class="kv__v mono">"Show me Tesla’s revenue from their most recent quarterly report"</div>
+                                            </div>
+
+                                            <div class="grid2">
+                                                <div class="panel">
+                                                    <div class="panel__h">Agents (CrewAI)</div>
+                                                    <div class="panel__c mono">
+                                                        Solver: produce draft answer<br />
+                                                        Verifier: review + gate verdict<br />
+                                                        (role-play loop)
+                                                    </div>
+                                                </div>
+
+                                                <div class="panel">
+                                                    <div class="panel__h">Two-Round Pipeline</div>
+                                                    <div class="panel__c mono">
+                                                        Round 1: Solve → Light review<br />
+                                                        Round 2: Revise w/ feedback → Final audit<br />
+                                                        Ship only on PASS
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="panel">
-                                                <div class="panel__h">Two-Round Pipeline</div>
-                                                <div class="panel__c mono">
-                                                    Round 1: Solve → Light review<br />
-                                                    Round 2: Revise w/ feedback → Final audit<br />
-                                                    Ship only on PASS
-                                                </div>
-                                            </div>
+                                        </div>
+                                        </section>
+
+                                        <section class="mcp-card" data-card="1" aria-label="Round 1: Solver Draft">
+                                        <div class="mcp-card__top">
+                                            <span class="tag">ROUND 1 — SOLVE</span>
+                                            <span class="badge">Step 1</span>
                                         </div>
 
-                                        <div class="hint">
-                                            <span class="hint__dot"></span>
-                                            CrewAI orchestrates roles; correctness is enforced by a PASS gate (not vibes).
-                                        </div>
-                                    </div>
-                                    </section>
-                                </div>
-
-                                <!-- Card 2 -->
-                                <div class="mcp-slide">
-                                    <section class="mcp-card" data-card="1" aria-label="Round 1: Solver Draft">
-                                    <div class="mcp-card__top">
-                                        <span class="tag">ROUND 1 — SOLVE</span>
-                                        <span class="badge">Step 1</span>
-                                    </div>
-
-                                    <div class="mcp-card__body">
-                                        <div class="split">
-                                            <div class="col">
-                                                <div class="col__h">TASK (Solver)</div>
-                                                <pre class="code mono">Call react_mcp_solve EXACTLY ONCE.
+                                        <div class="mcp-card__body">
+                                            <div class="split">
+                                                <div class="col">
+                                                    <div class="col__h">TASK (Solver)</div>
+                                                    <pre class="code mono">Call react_mcp_solve EXACTLY ONCE.
 Return ONLY the Tool Output JSON.
 (question + model + max_steps)</pre>
-                                            </div>
+                                                </div>
 
-                                            <div class="col">
-                                                <div class="col__h">DRAFT OUTPUT (trimmed)</div>
-                                                <pre class="code mono">{
+                                                <div class="col">
+                                                    <div class="col__h">DRAFT OUTPUT (trimmed)</div>
+                                                    <pre class="code mono">{
   "final_answer": "Tesla's most recent quarterly revenue is $28,095,000,000 ... [SEC link]",
   "info": { "n_calls": 4, "n_badcalls": 1 }
 }</pre>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="hint">
-                                            <span class="hint__dot"></span>
-                                            Draft is produced by Solver; tool plumbing (SEC EDGAR) is abstracted away here.
                                         </div>
+                                        </section>
                                     </div>
-                                    </section>
                                 </div>
 
-                                <!-- Card 3 -->
+                                <!-- Slide Group 2 (cards 3 & 4 stacked) -->
                                 <div class="mcp-slide">
-                                    <section class="mcp-card" data-card="2" aria-label="Round 1: Verifier Light Review">
-                                    <div class="mcp-card__top">
-                                        <span class="tag">ROUND 1 — VERIFY</span>
-                                        <span class="badge badge--warn">Step 2</span>
-                                    </div>
+                                    <div class="mcp-stack">
+                                        <section class="mcp-card" data-card="2" aria-label="Round 1: Verifier Light Review">
+                                        <div class="mcp-card__top">
+                                            <span class="tag">ROUND 1 — VERIFY</span>
+                                            <span class="badge badge--warn">Step 2</span>
+                                        </div>
 
-                                    <div class="mcp-card__body">
-                                        <div class="split">
-                                            <div class="col">
-                                                <div class="col__h">TASK (Verifier — light)</div>
-                                                <pre class="code mono">Review the DRAFT JSON LIGHTLY (demo mode).
+                                        <div class="mcp-card__body">
+                                            <div class="split">
+                                                <div class="col">
+                                                    <div class="col__h">TASK (Verifier — light)</div>
+                                                    <pre class="code mono">Review the DRAFT JSON LIGHTLY (demo mode).
 Return ONLY JSON:
 {
   "verdict": "PASS"|"FAIL",
@@ -1218,65 +1215,55 @@ Return ONLY JSON:
   "recheck_plan": [...],
   "notes": "short"
 }</pre>
-                                            </div>
+                                                </div>
 
-                                            <div class="col">
-                                                <div class="col__h">VERDICT</div>
-                                                <pre class="code mono">{
+                                                <div class="col">
+                                                    <div class="col__h">VERDICT</div>
+                                                    <pre class="code mono">{
   "verdict": "PASS",
   "issues": [],
   "fixes": [],
   "recheck_plan": [],
   "notes": "Valid JSON + revenue + SEC link."
 }</pre>
+                                                </div>
                                             </div>
+
+                                        </div>
+                                        </section>
+
+                                        <section class="mcp-card" data-card="3" aria-label="Round 2: Feedback + Final Audit">
+                                        <div class="mcp-card__top">
+                                            <span class="tag">ROUND 2 — GATE</span>
+                                            <span class="badge badge--ok">Step 3</span>
                                         </div>
 
-                                        <div class="hint">
-                                            <span class="hint__dot hint__dot--warn"></span>
-                                            Verifier runs as a separate role: quick sanity checks before spending effort on final gate.
-                                        </div>
-                                    </div>
-                                    </section>
-                                </div>
-
-                                <!-- Card 4 -->
-                                <div class="mcp-slide">
-                                    <section class="mcp-card" data-card="3" aria-label="Round 2: Feedback + Final Audit">
-                                    <div class="mcp-card__top">
-                                        <span class="tag">ROUND 2 — GATE</span>
-                                        <span class="badge badge--ok">Step 3</span>
-                                    </div>
-
-                                    <div class="mcp-card__body">
-                                        <div class="split">
-                                            <div class="col">
-                                                <div class="col__h">SOLVER RE-RUN (with feedback)</div>
-                                                <pre class="code mono">Tool Input includes Verifier JSON as feedback:
+                                        <div class="mcp-card__body">
+                                            <div class="split">
+                                                <div class="col">
+                                                    <div class="col__h">SOLVER RE-RUN (with feedback)</div>
+                                                    <pre class="code mono">Tool Input includes Verifier JSON as feedback:
 feedback = {"verdict":"PASS", ...}
 
 Solver re-calls react_mcp_solve (2nd run)
 → produces FINAL candidate JSON.</pre>
-                                            </div>
+                                                </div>
 
-                                            <div class="col">
-                                                <div class="col__h">FINAL AUDIT (Verifier)</div>
-                                                <pre class="code mono">{"verdict":"PASS","remaining_risks":[]}</pre>
+                                                <div class="col">
+                                                    <div class="col__h">FINAL AUDIT (Verifier)</div>
+                                                    <pre class="code mono">{"verdict":"PASS","remaining_risks":[]}</pre>
 
-                                                <div class="pillrow">
-                                                    <span class="pill pill--ok">PASS gate</span>
-                                                    <span class="pill">remaining_risks: []</span>
-                                                    <span class="pill">ship decision</span>
+                                                    <div class="pillrow">
+                                                        <span class="pill pill--ok">PASS gate</span>
+                                                        <span class="pill">remaining_risks: []</span>
+                                                        <span class="pill">ship decision</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="hint">
-                                            <span class="hint__dot hint__dot--ok"></span>
-                                            Two-round loop: role-play feedback → final audit gate → only then ship.
                                         </div>
+                                        </section>
                                     </div>
-                                    </section>
                                 </div>
                             </div>
                         </div>
