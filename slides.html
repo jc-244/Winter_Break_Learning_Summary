@@ -171,10 +171,31 @@ a.unstyled-link:hover { text-decoration: underline; }
     width: 100%;
     background: #fff;
     padding: 28px;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-radius: 18px;
     box-shadow:
         0 26px 80px rgba(15, 23, 42, 0.14),
         0 2px 0 rgba(15, 23, 42, 0.04);
+}
+.poster--slider { overflow: hidden; }
+.poster--slider .poster-slider {
+    display: flex;
+    width: 100%;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+.poster--slider .poster-slider img {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    max-height: 320px;
+    width: 100%;
+    object-fit: contain;
 }
 .poster-tag {
     position: absolute;
@@ -330,10 +351,10 @@ a.unstyled-link:hover { text-decoration: underline; }
 
 /* --- 6. MCP CAROUSEL --- */
 .mcp-carousel {
-    width: 520px;
-    height: 620px;
-    max-width: 90%;
-    max-height: 90%;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     border: 1px solid rgba(15, 23, 42, 0.12);
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.92);
@@ -611,10 +632,10 @@ a.unstyled-link:hover { text-decoration: underline; }
 
 /* --- 7. REACT + MCP PANEL --- */
 .reactmcp {
-    width: 520px;
-    height: 620px;
-    max-width: 90%;
-    max-height: 90%;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     border: 1px solid rgba(15, 23, 42, 0.12);
     border-radius: 16px;
     background: #ffffff;
@@ -734,7 +755,7 @@ a.unstyled-link:hover { text-decoration: underline; }
     <div class="slide-inner">
         <div class="title-layout hero-title">
             <h1>Winter Break Learning Summary</h1>
-            <p class="subtitle">AI Agents: Reasoning · Planning · Tool Use | Reading & Coding</p>
+            <p class="subtitle">AI Agents: Reasoning · Planning · Tool Using </p>
         </div>
         <div class="slide-footer">Tab 5 Report</div>
     </div>
@@ -758,7 +779,7 @@ a.unstyled-link:hover { text-decoration: underline; }
                 </div>
                 <div class="tile">
                     <div class="icon"><i class="fa-solid fa-list-check"></i></div>
-                    <h3>Frameworks</h3>
+                    <h3>Gtihub Lists</h3>
                     <p>GitHub lists of agent <a class="unstyled-link" href="https://github.com/kaushikb11/awesome-llm-agents" target="_blank" rel="noopener noreferrer">Frameworks</a> &amp; Papers (<a class="unstyled-link" href="https://github.com/WooooDyy/LLM-Agent-Paper-List" target="_blank" rel="noopener noreferrer">2023-2024</a>, <a class="unstyled-link" href="https://github.com/AGI-Edgerunners/LLM-Agents-Papers" target="_blank" rel="noopener noreferrer">2024-2025</a>).</p>
                 </div>
             </div>
@@ -797,8 +818,12 @@ a.unstyled-link:hover { text-decoration: underline; }
                     without that, “search” is just noise.
                 </p>
             </div>
-            <div class="image-wrapper">
-                <img src="http://googleusercontent.com/image_collection/image_retrieval/16422640634148583502" alt="ToT Diagram">
+            <div class="poster poster--slider">
+                <div class="poster-tag">ToT • ReAct</div>
+                <div class="poster-slider">
+                    <img src="./tot.png" alt="ToT Diagram">
+                    <img src="./react.png" alt="ReAct Diagram">
+                </div>
             </div>
         </div>
         <div class="slide-footer">Tab 5 Report</div>
@@ -867,10 +892,10 @@ a.unstyled-link:hover { text-decoration: underline; }
                         <div class="mac-btn" style="background: #febc2e;"></div>
                         <div class="mac-btn" style="background: #28c840;"></div>
                     </div>
-                    <div class="mac-title">DOM_snapshot.png</div>
+                    <div class="mac-title">Search_Visualization</div>
                 </div>
                 <div class="mac-image-body">
-                    <img src="./exact_modified.png" alt="DOM Interaction">
+                    <img src="./exact_modified.png" alt="DOM IVnteraction">
                 </div>
             </div>
         </div>
@@ -898,72 +923,75 @@ a.unstyled-link:hover { text-decoration: underline; }
             </ul>
         </div>
         <div class="bleed-image">
-            <div class="reactmcp">
-                <div class="reactmcp__header">
-                    <div class="reactmcp__title">ReAct Loop → MCP Tool Calls</div>
-                    <div class="reactmcp__pills">
-                        <span class="pill">Thought · Action · Observation</span>
-                        <span class="pill pill--ok">Action = MCP JSON</span>
-                        <span class="pill">SEC EDGAR tools</span>
+            <div class="mac-window-wrapper mac-image-window">
+                <div class="mac-header">
+                    <div class="mac-buttons">
+                        <div class="mac-btn" style="background: #ff5f57;"></div>
+                        <div class="mac-btn" style="background: #febc2e;"></div>
+                        <div class="mac-btn" style="background: #28c840;"></div>
                     </div>
+                    <div class="mac-title">ReAct Loop → MCP Tool Calls</div>
                 </div>
-
-                <div class="reactmcp__body">
-                    <div class="compare">
-                        <div class="compare__col">
-                            <div class="compare__h">Before (Custom DSL)</div>
-                            <pre class="code mono">Thought: need latest 10-Q revenue
+                <div class="mac-image-body">
+                    <div class="reactmcp">
+                        <div class="reactmcp__body">
+                            <div class="compare">
+                                <div class="compare__col">
+                                    <div class="compare__h">Before (Custom DSL)</div>
+                                    <pre class="code mono">Thought: need latest 10-Q revenue
 Action: Search[TSLA 10-Q revenue]
 Observation: ... (free-text, brittle)</pre>
-                        </div>
+                                </div>
 
-                        <div class="compare__col">
-                            <div class="compare__h">After (MCP Structured Call)</div>
-                            <pre class="code mono">Thought: fetch latest 10-Q + parse revenue
+                                <div class="compare__col">
+                                    <div class="compare__h">After (MCP Structured Call)</div>
+                                    <pre class="code mono">Thought: fetch latest 10-Q + parse revenue
 Action: {"tool":"get_recent_filings",
          "args":{"identifier":"TSLA","form":"10-Q","limit":1}}
 Observation: {"accession":"...","period_end":"..."}  // JSON</pre>
-                        </div>
-                    </div>
-
-                    <div class="timeline">
-                        <div class="timeline__h">One ReAct iteration (example)</div>
-
-                        <div class="step">
-                            <div class="step__idx">1</div>
-                            <div class="step__content">
-                                <div class="step__k">Thought</div>
-                                <div class="step__v">Identify the company and locate the most recent 10-Q.</div>
-                                <div class="step__k">Action (MCP)</div>
-                                <pre class="code mono">{"tool":"get_cik_by_ticker","args":{"ticker":"TSLA"}}</pre>
-                                <div class="step__k">Observation</div>
-                                <pre class="code mono">{"cik":"0001318605"}</pre>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="step">
-                            <div class="step__idx">2</div>
-                            <div class="step__content">
-                                <div class="step__k">Thought</div>
-                                <div class="step__v">Find the latest quarterly filing (10-Q) and its period end.</div>
-                                <div class="step__k">Action (MCP)</div>
-                                <pre class="code mono">{"tool":"get_recent_filings",
+                            <div class="timeline">
+                                <div class="timeline__h">One ReAct iteration (example)</div>
+
+                                <div class="step">
+                                    <div class="step__idx">1</div>
+                                    <div class="step__content">
+                                        <div class="step__k">Thought</div>
+                                        <div class="step__v">Identify the company and locate the most recent 10-Q.</div>
+                                        <div class="step__k">Action (MCP)</div>
+                                        <pre class="code mono">{"tool":"get_cik_by_ticker","args":{"ticker":"TSLA"}}</pre>
+                                        <div class="step__k">Observation</div>
+                                        <pre class="code mono">{"cik":"0001318605"}</pre>
+                                    </div>
+                                </div>
+
+                                <div class="step">
+                                    <div class="step__idx">2</div>
+                                    <div class="step__content">
+                                        <div class="step__k">Thought</div>
+                                        <div class="step__v">Find the latest quarterly filing (10-Q) and its period end.</div>
+                                        <div class="step__k">Action (MCP)</div>
+                                        <pre class="code mono">{"tool":"get_recent_filings",
  "args":{"identifier":"0001318605","form":"10-Q","limit":1}}</pre>
-                                <div class="step__k">Observation</div>
-                                <pre class="code mono">{"accession":"0001628280-25-045968","period_end":"2025-09-30"}</pre>
-                            </div>
-                        </div>
+                                        <div class="step__k">Observation</div>
+                                        <pre class="code mono">{"accession":"0001628280-25-045968","period_end":"2025-09-30"}</pre>
+                                    </div>
+                                </div>
 
-                        <div class="step">
-                            <div class="step__idx">3</div>
-                            <div class="step__content">
-                                <div class="step__k">Thought</div>
-                                <div class="step__v">Extract revenue in a typed, repeatable way (avoid scraping text).</div>
-                                <div class="step__k">Action (MCP)</div>
-                                <pre class="code mono">{"tool":"get_financials",
+                                <div class="step">
+                                    <div class="step__idx">3</div>
+                                    <div class="step__content">
+                                        <div class="step__k">Thought</div>
+                                        <div class="step__v">Extract revenue in a typed, repeatable way (avoid scraping text).</div>
+                                        <div class="step__k">Action (MCP)</div>
+                                        <pre class="code mono">{"tool":"get_financials",
  "args":{"identifier":"0001318605","metric":"revenue","period":"2025-Q3"}}</pre>
-                                <div class="step__k">Observation</div>
-                                <pre class="code mono">{"total_revenue_usd":28095000000,"period_end":"2025-09-30"}</pre>
+                                        <div class="step__k">Observation</div>
+                                        <pre class="code mono">{"total_revenue_usd":28095000000,"period_end":"2025-09-30"}</pre>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -991,103 +1019,109 @@ Observation: {"accession":"...","period_end":"..."}  // JSON</pre>
             <p>CrewAI is great for <strong>structure</strong> (Role/Task definition), but weak on <strong>protocol</strong>. Maintaining state consistency across agents requires custom data contracts.</p>
         </div>
         <div class="bleed-image">
-            <!-- MCP Cards Carousel (4 cards, swipe/scroll + arrows + dots) -->
-            <div class="mcp-carousel" aria-label="CrewAI Validation Trace">
-                <div class="mcp-carousel__header">
-                    <div class="mcp-carousel__title">CrewAI Validation Trace (2 Rounds)</div>
+            <div class="mac-window-wrapper mac-image-window">
+                <div class="mac-header">
+                    <div class="mac-buttons">
+                        <div class="mac-btn" style="background: #ff5f57;"></div>
+                        <div class="mac-btn" style="background: #febc2e;"></div>
+                        <div class="mac-btn" style="background: #28c840;"></div>
+                    </div>
+                    <div class="mac-title">CrewAI Validation Trace (2 Rounds)</div>
                 </div>
-
-                <div class="mcp-carousel__viewport" id="mcpViewport">
-                    <div class="mcp-carousel__track" id="mcpTrack">
-                        <!-- Card 1 -->
-                        <div class="mcp-slide">
-                            <section class="mcp-card" data-card="0" aria-label="Run Meta: Role-Play + Gate">
-                            <div class="mcp-card__top">
-                                <span class="tag">ROLE-PLAY SETUP</span>
-                                <span class="badge">Round 0</span>
-                            </div>
-
-                            <div class="mcp-card__body">
-                                <div class="kv">
-                                    <div class="kv__k">User Query</div>
-                                    <div class="kv__v mono">"Show me Tesla’s revenue from their most recent quarterly report"</div>
-                                </div>
-
-                                <div class="grid2">
-                                    <div class="panel">
-                                        <div class="panel__h">Agents (CrewAI)</div>
-                                        <div class="panel__c mono">
-                                            Solver: produce draft answer<br />
-                                            Verifier: review + gate verdict<br />
-                                            (role-play loop)
-                                        </div>
+                <div class="mac-image-body">
+                    <!-- MCP Cards Carousel (4 cards, swipe/scroll + arrows + dots) -->
+                    <div class="mcp-carousel" aria-label="CrewAI Validation Trace">
+                        <div class="mcp-carousel__viewport" id="mcpViewport">
+                            <div class="mcp-carousel__track" id="mcpTrack">
+                                <!-- Card 1 -->
+                                <div class="mcp-slide">
+                                    <section class="mcp-card" data-card="0" aria-label="Run Meta: Role-Play + Gate">
+                                    <div class="mcp-card__top">
+                                        <span class="tag">ROLE-PLAY SETUP</span>
+                                        <span class="badge">Round 0</span>
                                     </div>
 
-                                    <div class="panel">
-                                        <div class="panel__h">Two-Round Pipeline</div>
-                                        <div class="panel__c mono">
-                                            Round 1: Solve → Light review<br />
-                                            Round 2: Revise w/ feedback → Final audit<br />
-                                            Ship only on PASS
+                                    <div class="mcp-card__body">
+                                        <div class="kv">
+                                            <div class="kv__k">User Query</div>
+                                            <div class="kv__v mono">"Show me Tesla’s revenue from their most recent quarterly report"</div>
+                                        </div>
+
+                                        <div class="grid2">
+                                            <div class="panel">
+                                                <div class="panel__h">Agents (CrewAI)</div>
+                                                <div class="panel__c mono">
+                                                    Solver: produce draft answer<br />
+                                                    Verifier: review + gate verdict<br />
+                                                    (role-play loop)
+                                                </div>
+                                            </div>
+
+                                            <div class="panel">
+                                                <div class="panel__h">Two-Round Pipeline</div>
+                                                <div class="panel__c mono">
+                                                    Round 1: Solve → Light review<br />
+                                                    Round 2: Revise w/ feedback → Final audit<br />
+                                                    Ship only on PASS
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="hint">
+                                            <span class="hint__dot"></span>
+                                            CrewAI orchestrates roles; correctness is enforced by a PASS gate (not vibes).
                                         </div>
                                     </div>
+                                    </section>
                                 </div>
 
-                                <div class="hint">
-                                    <span class="hint__dot"></span>
-                                    CrewAI orchestrates roles; correctness is enforced by a PASS gate (not vibes).
-                                </div>
-                            </div>
-                            </section>
-                        </div>
+                                <!-- Card 2 -->
+                                <div class="mcp-slide">
+                                    <section class="mcp-card" data-card="1" aria-label="Round 1: Solver Draft">
+                                    <div class="mcp-card__top">
+                                        <span class="tag">ROUND 1 — SOLVE</span>
+                                        <span class="badge">Step 1</span>
+                                    </div>
 
-                        <!-- Card 2 -->
-                        <div class="mcp-slide">
-                            <section class="mcp-card" data-card="1" aria-label="Round 1: Solver Draft">
-                            <div class="mcp-card__top">
-                                <span class="tag">ROUND 1 — SOLVE</span>
-                                <span class="badge">Step 1</span>
-                            </div>
-
-                            <div class="mcp-card__body">
-                                <div class="split">
-                                    <div class="col">
-                                        <div class="col__h">TASK (Solver)</div>
-                                        <pre class="code mono">Call react_mcp_solve EXACTLY ONCE.
+                                    <div class="mcp-card__body">
+                                        <div class="split">
+                                            <div class="col">
+                                                <div class="col__h">TASK (Solver)</div>
+                                                <pre class="code mono">Call react_mcp_solve EXACTLY ONCE.
 Return ONLY the Tool Output JSON.
 (question + model + max_steps)</pre>
-                                    </div>
+                                            </div>
 
-                                    <div class="col">
-                                        <div class="col__h">DRAFT OUTPUT (trimmed)</div>
-                                        <pre class="code mono">{
+                                            <div class="col">
+                                                <div class="col__h">DRAFT OUTPUT (trimmed)</div>
+                                                <pre class="code mono">{
   "final_answer": "Tesla's most recent quarterly revenue is $28,095,000,000 ... [SEC link]",
   "info": { "n_calls": 4, "n_badcalls": 1 }
 }</pre>
+                                            </div>
+                                        </div>
+
+                                        <div class="hint">
+                                            <span class="hint__dot"></span>
+                                            Draft is produced by Solver; tool plumbing (SEC EDGAR) is abstracted away here.
+                                        </div>
                                     </div>
+                                    </section>
                                 </div>
 
-                                <div class="hint">
-                                    <span class="hint__dot"></span>
-                                    Draft is produced by Solver; tool plumbing (SEC EDGAR) is abstracted away here.
-                                </div>
-                            </div>
-                            </section>
-                        </div>
+                                <!-- Card 3 -->
+                                <div class="mcp-slide">
+                                    <section class="mcp-card" data-card="2" aria-label="Round 1: Verifier Light Review">
+                                    <div class="mcp-card__top">
+                                        <span class="tag">ROUND 1 — VERIFY</span>
+                                        <span class="badge badge--warn">Step 2</span>
+                                    </div>
 
-                        <!-- Card 3 -->
-                        <div class="mcp-slide">
-                            <section class="mcp-card" data-card="2" aria-label="Round 1: Verifier Light Review">
-                            <div class="mcp-card__top">
-                                <span class="tag">ROUND 1 — VERIFY</span>
-                                <span class="badge badge--warn">Step 2</span>
-                            </div>
-
-                            <div class="mcp-card__body">
-                                <div class="split">
-                                    <div class="col">
-                                        <div class="col__h">TASK (Verifier — light)</div>
-                                        <pre class="code mono">Review the DRAFT JSON LIGHTLY (demo mode).
+                                    <div class="mcp-card__body">
+                                        <div class="split">
+                                            <div class="col">
+                                                <div class="col__h">TASK (Verifier — light)</div>
+                                                <pre class="code mono">Review the DRAFT JSON LIGHTLY (demo mode).
 Return ONLY JSON:
 {
   "verdict": "PASS"|"FAIL",
@@ -1096,69 +1130,71 @@ Return ONLY JSON:
   "recheck_plan": [...],
   "notes": "short"
 }</pre>
-                                    </div>
+                                            </div>
 
-                                    <div class="col">
-                                        <div class="col__h">VERDICT</div>
-                                        <pre class="code mono">{
+                                            <div class="col">
+                                                <div class="col__h">VERDICT</div>
+                                                <pre class="code mono">{
   "verdict": "PASS",
   "issues": [],
   "fixes": [],
   "recheck_plan": [],
   "notes": "Valid JSON + revenue + SEC link."
 }</pre>
+                                            </div>
+                                        </div>
+
+                                        <div class="hint">
+                                            <span class="hint__dot hint__dot--warn"></span>
+                                            Verifier runs as a separate role: quick sanity checks before spending effort on final gate.
+                                        </div>
                                     </div>
+                                    </section>
                                 </div>
 
-                                <div class="hint">
-                                    <span class="hint__dot hint__dot--warn"></span>
-                                    Verifier runs as a separate role: quick sanity checks before spending effort on final gate.
-                                </div>
-                            </div>
-                            </section>
-                        </div>
+                                <!-- Card 4 -->
+                                <div class="mcp-slide">
+                                    <section class="mcp-card" data-card="3" aria-label="Round 2: Feedback + Final Audit">
+                                    <div class="mcp-card__top">
+                                        <span class="tag">ROUND 2 — GATE</span>
+                                        <span class="badge badge--ok">Step 3</span>
+                                    </div>
 
-                        <!-- Card 4 -->
-                        <div class="mcp-slide">
-                            <section class="mcp-card" data-card="3" aria-label="Round 2: Feedback + Final Audit">
-                            <div class="mcp-card__top">
-                                <span class="tag">ROUND 2 — GATE</span>
-                                <span class="badge badge--ok">Step 3</span>
-                            </div>
-
-                            <div class="mcp-card__body">
-                                <div class="split">
-                                    <div class="col">
-                                        <div class="col__h">SOLVER RE-RUN (with feedback)</div>
-                                        <pre class="code mono">Tool Input includes Verifier JSON as feedback:
+                                    <div class="mcp-card__body">
+                                        <div class="split">
+                                            <div class="col">
+                                                <div class="col__h">SOLVER RE-RUN (with feedback)</div>
+                                                <pre class="code mono">Tool Input includes Verifier JSON as feedback:
 feedback = {"verdict":"PASS", ...}
 
 Solver re-calls react_mcp_solve (2nd run)
 → produces FINAL candidate JSON.</pre>
-                                    </div>
+                                            </div>
 
-                                    <div class="col">
-                                        <div class="col__h">FINAL AUDIT (Verifier)</div>
-                                        <pre class="code mono">{"verdict":"PASS","remaining_risks":[]}</pre>
+                                            <div class="col">
+                                                <div class="col__h">FINAL AUDIT (Verifier)</div>
+                                                <pre class="code mono">{"verdict":"PASS","remaining_risks":[]}</pre>
 
-                                        <div class="pillrow">
-                                            <span class="pill pill--ok">PASS gate</span>
-                                            <span class="pill">remaining_risks: []</span>
-                                            <span class="pill">ship decision</span>
+                                                <div class="pillrow">
+                                                    <span class="pill pill--ok">PASS gate</span>
+                                                    <span class="pill">remaining_risks: []</span>
+                                                    <span class="pill">ship decision</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="hint">
+                                            <span class="hint__dot hint__dot--ok"></span>
+                                            Two-round loop: role-play feedback → final audit gate → only then ship.
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="hint">
-                                    <span class="hint__dot hint__dot--ok"></span>
-                                    Two-round loop: role-play feedback → final audit gate → only then ship.
+                                    </section>
                                 </div>
                             </div>
-                            </section>
                         </div>
+
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
