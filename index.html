@@ -746,6 +746,77 @@ a.unstyled-link:hover { text-decoration: underline; }
     font-size: 11px;
     line-height: 1.4;
 }
+
+/* --- 8. RESPONSIVE (TABLET & MOBILE) --- */
+@media (max-width: 1100px) {
+    html { scroll-snap-type: y proximity; }
+    .slide-container {
+        height: auto;
+        min-height: 100vh;
+        align-items: stretch;
+        justify-content: flex-start;
+        overflow: visible;
+    }
+    .slide-inner {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 32px 28px;
+        box-sizing: border-box;
+    }
+    .two-column,
+    .bleed-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    .tiled-content {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .poster { min-height: auto; }
+    .poster--slider .poster-slider img { max-height: 260px; }
+    .bleed-layout { position: static; width: 100%; }
+    .bleed-content { padding: 32px 24px; max-width: none; }
+    .bleed-image { padding: 20px; }
+    .mac-window-wrapper.mac-image-window {
+        width: 100%;
+        height: auto;
+        max-height: 520px;
+    }
+    .mac-image-body { max-height: 420px; }
+    .mcp-carousel { height: auto; }
+    .trace-scroll-area { height: 320px; }
+}
+
+@media (max-width: 768px) {
+    html { scroll-snap-type: none; }
+    .slide-container {
+        padding: 20px 12px;
+        scroll-snap-align: none;
+        scroll-snap-stop: normal;
+    }
+    .slide-inner {
+        padding: 22px 18px;
+        min-height: auto;
+    }
+    h1 { font-size: 38px; }
+    h2.slide-title { font-size: 30px; }
+    h3 { font-size: 20px; }
+    p, li, div { font-size: 18px; }
+    .title-layout { gap: 10px; }
+    .hero-title { margin-top: clamp(60px, 18vh, 120px); }
+    .image-wrapper { min-height: 200px; }
+    .tile { padding: 20px; }
+    .poster--slider .poster-slider img { max-height: 210px; }
+    .slide-footer {
+        position: static;
+        margin-top: 16px;
+    }
+    .slide-footer.show-footer { justify-content: flex-start; }
+    .compare, .grid2, .split { grid-template-columns: 1fr; }
+    .mcp-carousel__track { padding: 10px 0; }
+    .mcp-slide { padding: 0 8px; }
+    .trace-scroll-area { height: 260px; }
+}
     </style>
 </head>
 <body>
