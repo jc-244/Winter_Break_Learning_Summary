@@ -816,6 +816,23 @@ a.unstyled-link:hover { text-decoration: underline; }
     .mcp-carousel__track { padding: 10px 0; }
     .mcp-slide { padding: 0 8px; }
     .trace-scroll-area { height: 260px; }
+    /* Slide 7: stack carousel cards vertically on mobile */
+    .mac-window-wrapper.mac-image-window { max-height: none; }
+    .mac-image-body { max-height: none; }
+    .mcp-carousel { height: auto; }
+    .mcp-carousel__viewport {
+        overflow: visible;
+        scroll-snap-type: none;
+    }
+    .mcp-carousel__track {
+        flex-direction: column;
+        height: auto;
+        gap: 12px;
+    }
+    .mcp-slide {
+        flex: 1 1 auto;
+        padding: 0;
+    }
 }
     </style>
 </head>
