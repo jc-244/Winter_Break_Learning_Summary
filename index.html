@@ -882,7 +882,7 @@ a.unstyled-link:hover { text-decoration: underline; }
         <div class="two-column">
             <div>
                 <p style="margin: 0 0 18px 0;">
-                    <strong>Summary:</strong> ToT explores <em>thought space</em>; ReAct grounds reasoning via <em>actions</em>.
+                    <strong>Summary:</strong> ToT explores <em>thought space</em>; ReAct grounds reasoning via <em>actions</em>; Reflection improves future runs via <em>memory</em>.
                 </p>
                 <div style="display: grid; gap: 18px; margin-top: 6px;">
                     <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
@@ -907,7 +907,7 @@ a.unstyled-link:hover { text-decoration: underline; }
                     </div>
                 </div>
                 <p style="margin-top: 20px; border-left: 3px solid #0f172a; padding-left: 15px;">
-                    <strong>Key takeaway:</strong> Two clean primitives: “search over thoughts” and “act with language.” Modern agents are mostly combinations and extensions of these primitives. 
+                    <strong>Key takeaway:</strong> Three clean primitives: "search over thoughts", "act with language", and "learn from feedback via reflection memory". Modern agents are mostly combinations and extensions of these primitives. 
                 </p>
             </div>
             <div class="poster poster--slider">
@@ -930,7 +930,7 @@ a.unstyled-link:hover { text-decoration: underline; }
         <div class="two-column">
             <div>
                 <p style="margin: 0 0 18px 0;">
-                    <strong>Summary:</strong> See the flowchart — ExACT turns budgeted exploration on the real web into an engineering-friendly system: traceable, reusable, and modular.
+                    <strong>Summary:</strong> See the flowchart — ExACT turns budgeted exploration on the real web into an traceable, reusable, and modular agentic system.
                 </p>
                 <div style="display: grid; gap: 18px; margin-top: 6px;">
                     <div style="display: grid; grid-template-columns: 24px 1fr; column-gap: 12px; align-items: start;">
@@ -988,7 +988,7 @@ a.unstyled-link:hover { text-decoration: underline; }
                     <div class="mac-title">Search_Visualization</div>
                 </div>
                 <div class="mac-image-body">
-                    <img src="./exact_modified.png" alt="DOM IVnteraction">
+                    <img src="./exact_modified.png" alt="DOM Interaction">
                 </div>
             </div>
         </div>
@@ -1131,22 +1131,22 @@ Observation: {"accession":"...","period_end":"..."}  // JSON</pre>
                                     <div class="mcp-stack">
                                         <section class="mcp-card" data-card="0" aria-label="Run Meta: Role-Play + Gate">
                                         <div class="mcp-card__top">
-                                            <span class="tag">ROLE-PLAY SETUP</span>
+                                            <span class="tag">SETUP</span>
                                             <span class="badge">Round 0</span>
                                         </div>
 
                                         <div class="mcp-card__body">
                                             <div class="kv">
                                                 <div class="kv__k">User Query</div>
-                                                <div class="kv__v mono">"Show me Tesla’s revenue from their most recent quarterly report"</div>
+                                                <div class="kv__v mono">"Show me Tesla's revenue from their most recent quarterly report"</div>
                                             </div>
 
                                             <div class="grid2">
                                                 <div class="panel">
                                                     <div class="panel__h">Agents (CrewAI)</div>
                                                     <div class="panel__c mono">
-                                                        Solver: produce draft answer<br />
-                                                        Verifier: review + gate verdict<br />
+                                                        <strong>Solver</strong>: produce draft answer<br />
+                                                        <strong>Verifier</strong>: review + gate verdict<br />
                                                         (role-play loop)
                                                     </div>
                                                 </div>
@@ -1253,16 +1253,11 @@ Solver re-calls react_mcp_solve (2nd run)
                                                     <div class="col__h">FINAL AUDIT (Verifier)</div>
                                                     <pre class="code mono">{"verdict":"PASS","remaining_risks":[]}</pre>
 
-                                                    <div class="pillrow">
-                                                        <span class="pill pill--ok">PASS gate</span>
-                                                        <span class="pill">remaining_risks: []</span>
-                                                        <span class="pill">ship decision</span>
-                                                    </div>
-                                                </div>
                                             </div>
-
                                         </div>
-                                        </section>
+
+                                    </div>
+                                    </section>
                                     </div>
                                 </div>
                             </div>
